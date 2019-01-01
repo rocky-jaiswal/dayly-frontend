@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
 import { Dispatch, RootStateType } from '../../constants/types';
+import { LoginStatus } from '../../constants/enums';
 import { loadInitialData } from '../../redux/app/actions';
 import { withWrapper } from '../MainHoc';
 
 import styles from './styles.module.scss';
 
 interface Props {
+  loginStatus: LoginStatus;
   loading: boolean;
 }
 
@@ -20,6 +22,7 @@ interface DispatchProps {
 
 const mapStateToProps = (state: RootStateType, _ownProps: {}): Props => {
   return {
+    loginStatus: state.app.loginStatus,
     loading: state.app.loading
   };
 };
@@ -31,19 +34,32 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
+const WelcomeMessage = (props: Props) => {
+  return (
+    <div className={styles.container}>
+      <h1><FormattedMessage id="app.welcome" /></h1>
+      <hr/>
+      <h2>Please login</h2>
+    </div>
+  );
+};
+
 export class Root extends React.Component<Props & DispatchProps> {
 
   componentDidMount() {
-    // Uncomment to see sample XHR call
-    // this.props.loadInitialData();
+    if (this.props.loginStatus === LoginStatus.LOGGED_IN) {
+      this.props.loadInitialData();
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.loginStatus !== this.props.loginStatus && this.props.loginStatus === LoginStatus.LOGGED_IN) {
+      this.props.loadInitialData();
+    }
   }
 
   render() {
-    return (
-      <div className={styles.container}>
-        <h1><FormattedMessage id="app.welcome" /></h1>
-      </div>
-    );
+    return <WelcomeMessage {...this.props} />;
   }
 
 }

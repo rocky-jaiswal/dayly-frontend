@@ -16,7 +16,7 @@ const AppAPI = {
 
   async loadInitialData() {
     return await AppAPI.init()
-      .get(Config.env.baseURL + '/data');
+      .get(`${Config.env.baseURL}/hello`);
   }
 
 };

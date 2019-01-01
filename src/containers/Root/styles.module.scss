@@ -4,3 +4,8 @@
   display: flex;
   flex-direction: column;
 }
+
+hr {
+  border: 1px solid $main-complement;
+  margin: $vspace 0;
+}

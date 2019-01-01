@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
-import Layout from '../../components/Layout';
 import { RootStateType, Dispatch } from '../../constants/types';
 import { login, logout } from '../../redux/app/actions';
 import { LoginStatus } from '../../constants/enums';
+import Layout from '../../components/Layout';
 
 interface Props {
   loginStatus: LoginStatus;
@@ -13,6 +14,7 @@ interface Props {
 interface DispatchProps {
   login(): {};
   logout(): {};
+  changeRoute(route: string): {};
 }
 
 // tslint:disable-next-line:no-any
@@ -26,7 +28,8 @@ const mapStateToProps = (state: RootStateType, ownProps: any): Props => {
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     login: () => dispatch(login()),
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    changeRoute: (payload: string) => dispatch(push(payload))
   };
 };
 
@@ -36,9 +39,26 @@ export const withWrapper = (WrappedComponent: any) => {
   // tslint:disable-next-line:no-any
   class MainHoc extends React.Component<any, never> {
 
+    // tslint:disable-next-line:no-any
+    checkAuth(props: any) {
+      if (props.location.pathname !== '/'
+          && props.loginStatus !== LoginStatus.LOGGED_IN) {
+        props.changeRoute('/');
+      }
+    }
+
+    componentDidMount() {
+      const { props } = this;
+      this.checkAuth(props);
+    }
+
     render() {
       return (
-        <Layout loginStatus={this.props.loginStatus} login={this.props.login} logout={this.props.logout}>
+        <Layout
+          loginStatus={this.props.loginStatus}
+          login={this.props.login}
+          logout={this.props.logout}
+        >
           <WrappedComponent match={this.props.match} />
         </Layout>
       );

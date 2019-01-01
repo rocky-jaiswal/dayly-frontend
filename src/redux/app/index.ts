@@ -36,7 +36,9 @@ const appReducer = (state = initialState, action: ActionType<any>): AppStateType
 
     case LOGOUT:
       firebaseApp.auth().signOut();
-      return state.set('loginStatus', LoginStatus.NOT_LOGGED_IN);
+      return state
+        .set('userId', null)
+        .set('loginStatus', LoginStatus.NOT_LOGGED_IN);
 
     default:
       return state;

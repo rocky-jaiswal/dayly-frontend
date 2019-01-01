@@ -2,13 +2,12 @@ const environmentConfiguration = (environment: string) => {
 
   if (environment === 'development') {
     return {
-      baseURL: `http://${window.location.hostname}:3001`,
-      callbackURL : `http://${window.location.hostname}:3000/authCallback`
+      apiKey: process.env.REACT_APP_API_KEY,
+      baseURL: `https://us-central1-dayly-test.cloudfunctions.net/app`
     };
   }
   return {
-    baseURL: `https://${window.location.hostname}/api`,
-    callbackURL: `https://${window.location.hostname}/authCallback`
+    baseURL: `https://${window.location.hostname}/api`
   };
 };
 
