@@ -9,10 +9,12 @@ import { fetchToken } from '../../redux/app/actions';
 import { withWrapper } from '../MainHoc';
 
 import styles from './styles.module.scss';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 interface Props {
   loginStatus: LoginStatus;
   loading: boolean;
+  token: string;
 }
 
 interface DispatchProps {
@@ -23,7 +25,8 @@ interface DispatchProps {
 const mapStateToProps = (state: RootStateType, _ownProps: {}): Props => {
   return {
     loginStatus: state.app.loginStatus,
-    loading: state.app.loading
+    loading: state.app.loading,
+    token: state.app.token
   };
 };
 
@@ -39,7 +42,11 @@ const WelcomeMessage = (props: Props) => {
     <div className={styles.container}>
       <h1><FormattedMessage id="app.welcome" /></h1>
       <hr/>
-      <h2>Please login</h2>
+      {props.loading ?
+        <LoadingSpinner visible={props.loading} />
+        :
+        <h2>Please login</h2>
+      }
     </div>
   );
 };
@@ -55,6 +62,9 @@ export class Root extends React.Component<Props & DispatchProps> {
   componentDidUpdate(prevProps: Props) {
     if (prevProps.loginStatus !== this.props.loginStatus && this.props.loginStatus === LoginStatus.LOGGED_IN) {
       this.props.fetchToken();
+    }
+    if (this.props.loginStatus === LoginStatus.LOGGED_IN && this.props.token.length > 0) {
+      this.props.changeRoute('/home');
     }
   }
 

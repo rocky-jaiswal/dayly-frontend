@@ -48,8 +48,11 @@ export const withWrapper = (WrappedComponent: any) => {
     }
 
     componentDidMount() {
-      const { props } = this;
-      this.checkAuth(props);
+      this.checkAuth(this.props);
+    }
+
+    componentDidUpdate() {
+      this.checkAuth(this.props);
     }
 
     render() {

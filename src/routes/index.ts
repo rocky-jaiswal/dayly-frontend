@@ -1,5 +1,6 @@
 import Root from '../containers/Root';
 import About from '../containers/About';
+import Home from '../containers/Home';
 
 interface RouteDefinition {
   sequence: number;
@@ -25,6 +26,12 @@ const routes: Routes = {
     component: About,
     exact: true,
     path: '/about'
+  },
+  home: {
+    sequence: 3,
+    component: Home,
+    exact: true,
+    path: '/home'
   }
 };
 
