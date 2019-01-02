@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 
 import { Dispatch, RootStateType } from '../../constants/types';
 import { LoginStatus } from '../../constants/enums';
-import { loadInitialData } from '../../redux/app/actions';
+import { fetchToken } from '../../redux/app/actions';
 import { withWrapper } from '../MainHoc';
 
 import styles from './styles.module.scss';
@@ -17,7 +17,7 @@ interface Props {
 
 interface DispatchProps {
   changeRoute(route: string): {};
-  loadInitialData(): {};
+  fetchToken(): {};
 }
 
 const mapStateToProps = (state: RootStateType, _ownProps: {}): Props => {
@@ -29,7 +29,7 @@ const mapStateToProps = (state: RootStateType, _ownProps: {}): Props => {
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    loadInitialData: () => dispatch(loadInitialData()),
+    fetchToken: () => dispatch(fetchToken()),
     changeRoute: (payload: string) => dispatch(push(payload))
   };
 };
@@ -48,13 +48,13 @@ export class Root extends React.Component<Props & DispatchProps> {
 
   componentDidMount() {
     if (this.props.loginStatus === LoginStatus.LOGGED_IN) {
-      this.props.loadInitialData();
+      this.props.fetchToken();
     }
   }
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.loginStatus !== this.props.loginStatus && this.props.loginStatus === LoginStatus.LOGGED_IN) {
-      this.props.loadInitialData();
+      this.props.fetchToken();
     }
   }
 

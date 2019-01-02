@@ -1,7 +1,7 @@
-import loadInitialDataWatcher from './loadInitialData';
+import fetchTokenWatcher from './fetchToken';
 import authEventsSaga from './firebase';
 
 export default [
-  loadInitialDataWatcher,
+  fetchTokenWatcher,
   authEventsSaga
 ];

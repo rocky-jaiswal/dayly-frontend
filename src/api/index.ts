@@ -8,15 +8,15 @@ const AppAPI = {
     return axios.create({
       headers: {
         common: {
-          Authorization: sessionStorage.getItem('jwtToken') || ''
+          Authorization: sessionStorage.getItem('token') || ''
         }
       }
     });
   },
 
-  async loadInitialData() {
+  async fetchToken(userId: string) {
     return await AppAPI.init()
-      .get(`${Config.env.baseURL}/hello`);
+      .post(`${Config.env.baseURL}/login`, { userId });
   }
 
 };

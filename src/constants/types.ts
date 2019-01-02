@@ -5,6 +5,7 @@ import { LoginStatus } from './enums';
 export interface AppState {
   loading: boolean;
   locale: string;
+  token: string;
   userId: string | null;
   loginStatus: LoginStatus;
 }

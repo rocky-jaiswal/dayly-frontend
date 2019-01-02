@@ -3,11 +3,11 @@ const environmentConfiguration = (environment: string) => {
   if (environment === 'development') {
     return {
       apiKey: process.env.REACT_APP_API_KEY,
-      baseURL: `https://us-central1-dayly-test.cloudfunctions.net/app`
+      baseURL: `http://localhost:5000/dayly-test/us-central1/app`
     };
   }
   return {
-    baseURL: `https://${window.location.hostname}/api`
+    baseURL: `https://us-central1-dayly-test.cloudfunctions.net/app`
   };
 };
 

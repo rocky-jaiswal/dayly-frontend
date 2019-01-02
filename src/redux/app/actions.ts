@@ -1,32 +1,34 @@
-export const LOAD_INITIAL_DATA = 'app/LOAD_INITIAL_DATA';
-export const LOAD_INITIAL_DATA_INPROGRESS = 'app/LOAD_INITIAL_DATA_INPROGRESS';
-export const LOAD_INITIAL_DATA_SUCCESS = 'app/LOAD_INITIAL_DATA_SUCCESS';
-export const LOAD_INITIAL_DATA_FAILED = 'app/LOAD_INITIAL_DATA_FAILED';
+export const FETCH_TOKEN = 'app/FETCH_TOKEN';
+export const FETCH_TOKEN_INPROGRESS = 'app/FETCH_TOKEN_INPROGRESS';
+export const FETCH_TOKEN_SUCCESS = 'app/FETCH_TOKEN_SUCCESS';
+export const FETCH_TOKEN_FAILED = 'app/FETCH_TOKEN_FAILED';
+
 export const LOGIN = 'app/LOGIN';
 export const LOGIN_SUCCESSFUL = 'app/LOGIN_SUCCESSFUL';
 export const LOGOUT = 'app/LOGOUT';
 
-export const loadInitialData = () => {
+export const fetchToken = () => {
   return {
-    type: LOAD_INITIAL_DATA
+    type: FETCH_TOKEN
   };
 };
 
-export const loadInitialDataInProgress = () => {
+export const fetchTokenInProgress = () => {
   return {
-    type: LOAD_INITIAL_DATA_INPROGRESS
+    type: FETCH_TOKEN_INPROGRESS
   };
 };
 
-export const loadInitialDataSuccess = () => {
+export const fetchTokenSuccess = (payload: string) => {
   return {
-    type: LOAD_INITIAL_DATA_SUCCESS
+    payload,
+    type: FETCH_TOKEN_SUCCESS
   };
 };
 
-export const loadInitialDataFailed = () => {
+export const fetchTokenFailed = () => {
   return {
-    type: LOAD_INITIAL_DATA_FAILED
+    type: FETCH_TOKEN_FAILED
   };
 };
 

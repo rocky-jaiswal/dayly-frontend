@@ -3,12 +3,13 @@ import firebase from 'firebase';
 
 import { firebaseUI, firebaseApp } from '../../index';
 import { AppStateType, AppState, ActionType } from '../../constants/types';
-import { LOGIN, LOGIN_SUCCESSFUL, LOGOUT } from './actions';
+import { LOGIN, LOGIN_SUCCESSFUL, LOGOUT, FETCH_TOKEN_SUCCESS } from './actions';
 import { LoginStatus } from '../../constants/enums';
 
 export const istate: AppState = {
   locale: 'en',
   loading: false,
+  token: localStorage.getItem('token') || '',
   userId: null,
   loginStatus: LoginStatus.NOT_LOGGED_IN
 };
@@ -36,9 +37,15 @@ const appReducer = (state = initialState, action: ActionType<any>): AppStateType
 
     case LOGOUT:
       firebaseApp.auth().signOut();
+      localStorage.clear();
       return state
         .set('userId', null)
         .set('loginStatus', LoginStatus.NOT_LOGGED_IN);
+
+    case FETCH_TOKEN_SUCCESS:
+      localStorage.setItem('token', action.payload);
+      return state
+        .set('token', action.payload);
 
     default:
       return state;
