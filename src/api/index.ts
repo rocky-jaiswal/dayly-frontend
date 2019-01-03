@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import Config from '../config';
+import { LogEntry } from '../constants/types';
 
 const AppAPI = {
 
@@ -8,7 +9,7 @@ const AppAPI = {
     return axios.create({
       headers: {
         common: {
-          Authorization: sessionStorage.getItem('token') || ''
+          Authorization: `Bearer ${localStorage.getItem('token')}` || ''
         }
       }
     });
@@ -17,6 +18,11 @@ const AppAPI = {
   async fetchToken(userId: string) {
     return await AppAPI.init()
       .post(`${Config.env.baseURL}/login`, { userId });
+  },
+
+  async submitLog(log: LogEntry) {
+    return await AppAPI.init()
+      .post(`${Config.env.baseURL}/logEntry`, log);
   }
 
 };

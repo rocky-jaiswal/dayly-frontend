@@ -12,8 +12,23 @@ export interface AppState {
 
 export type AppStateType = Immutable<AppState>;
 
+export interface LogEntry {
+  day: Date;
+  thankfulFor: string;
+  stressedOut: string;
+  learnedToday: string;
+}
+
+export interface LogState {
+  today: LogEntry;
+  records: LogEntry[];
+}
+
+export type LogStateType = Immutable<LogState>;
+
 interface RootState {
   app: AppStateType;
+  logs: LogStateType;
 }
 
 export type ActionType<T> = {
