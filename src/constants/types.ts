@@ -20,6 +20,8 @@ export interface LogEntry {
 }
 
 export interface LogState {
+  loading: boolean;
+  message: string | null;
   today: LogEntry;
   records: LogEntry[];
 }

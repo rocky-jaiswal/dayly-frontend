@@ -42,7 +42,7 @@ export const withWrapper = (WrappedComponent: any) => {
     // tslint:disable-next-line:no-any
     checkAuth(props: any) {
       if (props.location.pathname !== '/'
-          && props.loginStatus !== LoginStatus.LOGGED_IN) {
+          && props.loginStatus !== LoginStatus.LOGGED_IN_WITH_TOKEN) {
         props.changeRoute('/');
       }
     }
@@ -61,6 +61,7 @@ export const withWrapper = (WrappedComponent: any) => {
           loginStatus={this.props.loginStatus}
           login={this.props.login}
           logout={this.props.logout}
+          changeRoute={this.props.changeRoute}
         >
           <WrappedComponent match={this.props.match} />
         </Layout>

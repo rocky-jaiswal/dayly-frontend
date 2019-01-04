@@ -63,7 +63,7 @@ export class Root extends React.Component<Props & DispatchProps> {
     if (prevProps.loginStatus !== this.props.loginStatus && this.props.loginStatus === LoginStatus.LOGGED_IN) {
       this.props.fetchToken();
     }
-    if (this.props.loginStatus === LoginStatus.LOGGED_IN && this.props.token.length > 0) {
+    if (this.props.loginStatus === LoginStatus.LOGGED_IN_WITH_TOKEN) {
       this.props.changeRoute('/home');
     }
   }

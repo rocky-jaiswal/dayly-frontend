@@ -16,6 +16,8 @@ import {
 } from '../../redux/logs/actions';
 
 interface Props {
+  loading: boolean;
+  message: string | null;
   today: Immutable<Date>;
 }
 
@@ -29,6 +31,8 @@ interface DispatchProps {
 
 const mapStateToProps = (state: RootStateType, _ownProps: {}): Props => {
   return {
+    loading: state.logs.loading,
+    message: state.logs.message,
     today: state.logs.today.day
   };
 };
@@ -50,6 +54,11 @@ export class Home extends React.Component<Props & DispatchProps> {
       <div className={styles.home_container}>
         <h1>On {dateFns.format(this.props.today.asMutable(), 'DD-MMM-YYYY')}</h1>
         <hr/>
+        {this.props.message &&
+          <div className={styles.message}>
+            <p>{this.props.message}</p>
+          </div>
+        }
         <form>
           <p>I am thankful for:</p>
           <textarea
@@ -67,7 +76,13 @@ export class Home extends React.Component<Props & DispatchProps> {
             onChange={(e) => this.props.changeStressedOut(e.target.value || '')}
           />
           <br/>
-          <button type="submit" onClick={(e) => { e.preventDefault(); this.props.submitLog(); }}>Save</button>
+          <button
+            disabled={this.props.loading}
+            type="submit"
+            onClick={(e) => { e.preventDefault(); this.props.submitLog(); }}
+          >
+            Save
+          </button>
         </form>
       </div>
     );

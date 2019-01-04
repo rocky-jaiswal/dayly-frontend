@@ -9,20 +9,20 @@ import firebaseui from 'firebaseui';
 
 import { App } from './containers/App';
 import { configureStore } from './store';
+import Config from './config';
 import * as serviceWorker from './serviceWorker';
 
 import 'normalize.css';
 import './styles/reset.css';
 import './styles/main.css';
-import Config from './config';
 
 export const firebaseApp = firebase.initializeApp({
   apiKey: Config.env.apiKey,
-  authDomain: 'dayly-test.firebaseapp.com',
-  databaseURL: 'https://dayly-test.firebaseio.com',
-  projectId: 'dayly-test',
-  storageBucket: 'dayly-test.appspot.com',
-  messagingSenderId: '949817480590'
+  authDomain: Config.env.authDomain,
+  databaseURL: Config.env.databaseURL,
+  projectId: Config.env.projectId,
+  storageBucket: Config.env.storageBucket,
+  messagingSenderId: Config.env.messagingSenderId
 });
 
 export const firebaseUI = new firebaseui.auth.AuthUI(firebaseApp.auth());

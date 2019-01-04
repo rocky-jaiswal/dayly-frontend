@@ -4,10 +4,15 @@ import { ActionType, LogState, LogStateType } from '../../constants/types';
 import {
   CHANGE_THANKFUL_FOR,
   CHANGE_LEARNED_TODAY,
-  CHANGE_STRESSED_OUT
+  CHANGE_STRESSED_OUT,
+  SUBMIT_LOG_IN_PROGESS,
+  SUBMIT_LOG_SUCCESSFUL,
+  SUBMIT_LOG_FAILED
 } from './actions';
 
 export const istate: LogState = {
+  loading: false,
+  message: null,
   today: {
     day: new Date(),
     thankfulFor: '',
@@ -31,6 +36,19 @@ const logsReducer = (state = initialState, action: ActionType<any>): LogStateTyp
 
     case CHANGE_STRESSED_OUT:
       return state.setIn(['today', 'stressedOut'], action.payload);
+
+    case SUBMIT_LOG_IN_PROGESS:
+      return state.set('loading', true);
+
+    case SUBMIT_LOG_SUCCESSFUL:
+      return state
+        .set('message', SUBMIT_LOG_SUCCESSFUL)
+        .set('loading', false);
+
+    case SUBMIT_LOG_FAILED:
+      return state
+        .set('message', SUBMIT_LOG_FAILED)
+        .set('loading', false);
 
     default:
       return state;

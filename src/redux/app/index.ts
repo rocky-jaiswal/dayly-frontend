@@ -44,11 +44,13 @@ const appReducer = (state = initialState, action: ActionType<any>): AppStateType
 
     case FETCH_TOKEN_INPROGRESS:
       return state
-        .set('loading', true);
+        .set('loading', true)
+        .set('loginStatus', LoginStatus.LOGIN_IN_PROGRESS);
 
     case FETCH_TOKEN_SUCCESS:
       localStorage.setItem('token', action.payload);
       return state
+        .set('loginStatus', LoginStatus.LOGGED_IN_WITH_TOKEN)
         .set('loading', false)
         .set('token', action.payload);
 

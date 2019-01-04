@@ -23,4 +23,14 @@
     padding: $hspace;
     color: $main-dark;
   }
+
+  .message {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: $main-blue;
+
+    p {
+      margin: 0;
+    }
+  }
 }
