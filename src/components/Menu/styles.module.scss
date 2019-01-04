@@ -92,6 +92,13 @@ button.system {
   width: 70%;
 }
 
+button.red {
+  background-color: $main-red;
+  color: $main-white;
+  padding: $hspace;
+  width: 70%;
+}
+
 .hidden {
   display: none;
 }

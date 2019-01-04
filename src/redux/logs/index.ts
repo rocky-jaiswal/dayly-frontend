@@ -7,7 +7,10 @@ import {
   CHANGE_STRESSED_OUT,
   SUBMIT_LOG_IN_PROGESS,
   SUBMIT_LOG_SUCCESSFUL,
-  SUBMIT_LOG_FAILED
+  SUBMIT_LOG_FAILED,
+  FETCH_LOGS_IN_PROGESS,
+  FETCH_LOGS_SUCCESSFUL,
+  FETCH_LOGS_FAILED
 } from './actions';
 
 export const istate: LogState = {
@@ -40,6 +43,9 @@ const logsReducer = (state = initialState, action: ActionType<any>): LogStateTyp
     case SUBMIT_LOG_IN_PROGESS:
       return state.set('loading', true);
 
+    case FETCH_LOGS_IN_PROGESS:
+      return state.set('loading', true);
+
     case SUBMIT_LOG_SUCCESSFUL:
       return state
         .set('message', SUBMIT_LOG_SUCCESSFUL)
@@ -48,6 +54,16 @@ const logsReducer = (state = initialState, action: ActionType<any>): LogStateTyp
     case SUBMIT_LOG_FAILED:
       return state
         .set('message', SUBMIT_LOG_FAILED)
+        .set('loading', false);
+
+    case FETCH_LOGS_SUCCESSFUL:
+      return state
+        .set('records', action.payload)
+        .set('loading', false);
+
+    case FETCH_LOGS_FAILED:
+      return state
+        .set('message', FETCH_LOGS_FAILED)
         .set('loading', false);
 
     default:

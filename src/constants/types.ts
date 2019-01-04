@@ -17,6 +17,7 @@ export interface LogEntry {
   thankfulFor: string;
   stressedOut: string;
   learnedToday: string;
+  userId?: string;
 }
 
 export interface LogState {

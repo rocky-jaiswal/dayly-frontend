@@ -47,7 +47,7 @@ class Menu extends React.Component<Props> {
                 className={this.props.loginStatus === LoginStatus.LOGGED_IN_WITH_TOKEN ? styles.system : styles.hidden}
                 onClick={() => this.props.changeRoute('/home')}
               >
-                Home
+                Today
               </button>
             </li>
             <li>
@@ -60,7 +60,7 @@ class Menu extends React.Component<Props> {
             </li>
             <li>
               <button
-                className={this.props.loginStatus === LoginStatus.LOGIN_IN_PROGRESS ? styles.hidden : styles.system}
+                className={this.props.loginStatus === LoginStatus.LOGIN_IN_PROGRESS ? styles.hidden : styles.red}
                 disabled={this.props.loginStatus === LoginStatus.LOGIN_IN_PROGRESS}
                 onClick={() => this.props.loginStatus === LoginStatus.LOGGED_IN_WITH_TOKEN ?
                   this.props.logout() : this.props.login()}

@@ -22,7 +22,12 @@ const AppAPI = {
 
   async submitLog(log: LogEntry) {
     return await AppAPI.init()
-      .post(`${Config.env.baseURL}/logEntry`, log);
+      .post(`${Config.env.baseURL}/logEntries`, log);
+  },
+
+  async fetchLogs() {
+    return await AppAPI.init()
+      .get(`${Config.env.baseURL}/logEntries`);
   }
 
 };

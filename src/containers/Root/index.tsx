@@ -54,17 +54,20 @@ const WelcomeMessage = (props: Props) => {
 export class Root extends React.Component<Props & DispatchProps> {
 
   componentDidMount() {
+    if (this.props.loginStatus === LoginStatus.LOGGED_IN_WITH_TOKEN) {
+      this.props.changeRoute('/home');
+    }
     if (this.props.loginStatus === LoginStatus.LOGGED_IN) {
       this.props.fetchToken();
     }
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.loginStatus !== this.props.loginStatus && this.props.loginStatus === LoginStatus.LOGGED_IN) {
-      this.props.fetchToken();
-    }
     if (this.props.loginStatus === LoginStatus.LOGGED_IN_WITH_TOKEN) {
       this.props.changeRoute('/home');
+    }
+    if (prevProps.loginStatus !== this.props.loginStatus && this.props.loginStatus === LoginStatus.LOGGED_IN) {
+      this.props.fetchToken();
     }
   }
 
