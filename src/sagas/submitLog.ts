@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, throttle } from 'redux-saga/effects';
 
 import API from '../api';
 import { RootStateType } from '../constants/types';
@@ -24,5 +24,5 @@ export function* submitLog() {
 }
 
 export default function* submitLogWatcher() {
-  yield takeLatest(SUBMIT_LOG, submitLog);
+  yield throttle(500, SUBMIT_LOG, submitLog);
 }
