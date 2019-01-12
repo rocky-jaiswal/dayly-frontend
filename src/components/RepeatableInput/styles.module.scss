@@ -1,0 +1,24 @@
+@import '../../styles/variables';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: $vspace;
+
+  input[type="text"] {
+    background-color: $light-gray;
+    border: 1px solid $main-alt;
+    width: 85%;
+    height: 40px;
+    margin-bottom: $vspace;
+    padding: $vspace / 2;
+    margin: 0;
+  }
+
+  button {
+    margin: 0;
+    background-color: $main-alt;
+    color: $main-white;
+  }
+}

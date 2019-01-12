@@ -9,14 +9,6 @@
     margin-bottom: 5px;
   }
 
-  textarea {
-    background-color: $light-gray;
-    height: 100px;
-    width: 100%;
-    margin-bottom: $vspace;
-    padding: $vspace;
-  }
-
   button {
     margin-top: $vspace;
     background-color: $main-green;
@@ -27,7 +19,7 @@
   .message {
     padding: 10px;
     margin-bottom: 10px;
-    background-color: $main-blue;
+    background-color: $main-brand;
 
     p {
       margin: 0;

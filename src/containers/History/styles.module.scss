@@ -3,7 +3,7 @@
 .message {
   padding: 10px;
   margin-bottom: 10px;
-  background-color: $main-blue;
+  background-color: $main-brand;
 
   p {
     margin: 0;
@@ -11,12 +11,45 @@
 }
 
 .day_card {
-  background-color: $main-complement;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 75px;
   padding: 5px;
-  color: $main-white;
-  margin-bottom: $vspace;
+  background-color: $main-white;
+  color: $main-brand;
+  margin-bottom: 10px;
+  border-bottom: 1px solid $main-alt;
+
+  p {
+    font-size: 24px;
+  }
+}
+
+.day_details {
+  display: flex;
+  flex-direction: column;
+  padding: $vspace;
+  margin: $vspace 0;
+  color: $main-dark;
+  border: 1px solid $main-brand;
+
+  p {
+    font-size: 16px;
+  }
+
+  li {
+    list-style: none;
+    padding: $vspace / 2;
+  }
 }
 
 .heading {
-  font-weight: 800;
+  font-weight: 600;
+  background-color: $main-orange;
+  padding: $vspace / 2;
+}
+
+.hidden {
+  display: none;
 }

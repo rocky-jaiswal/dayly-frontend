@@ -14,9 +14,9 @@ export type AppStateType = Immutable<AppState>;
 
 export interface LogEntry {
   day: Date;
-  thankfulFor: string;
-  stressedOut: string;
-  learnedToday: string;
+  thankfulFor: string[];
+  stressedOut: string[];
+  learnedToday: string[];
   userId?: string;
 }
 
@@ -25,6 +25,7 @@ export interface LogState {
   message: string | null;
   today: LogEntry;
   records: LogEntry[];
+  openRecords: number[] | null;
 }
 
 export type LogStateType = Immutable<LogState>;

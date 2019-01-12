@@ -1,8 +1,10 @@
-import { LogEntry } from "../../constants/types";
+import { LogEntry } from '../../constants/types';
 
 export const CHANGE_THANKFUL_FOR = 'app/CHANGE_THANKFUL_FOR';
 export const CHANGE_LEARNED_TODAY = 'app/CHANGE_LEARNED_TODAY';
 export const CHANGE_STRESSED_OUT = 'app/CHANGE_STRESSED_OUT';
+export const ADD_LINE = 'app/ADD_LINE';
+export const ADD_OPEN_RECORD = 'app/ADD_OPEN_RECORD';
 
 export const SUBMIT_LOG = 'app/SUBMIT_LOG';
 export const SUBMIT_LOG_IN_PROGESS = 'app/SUBMIT_LOG_IN_PROGESS';
@@ -14,21 +16,21 @@ export const FETCH_LOGS_IN_PROGESS = 'app/FETCH_LOGS_IN_PROGESS';
 export const FETCH_LOGS_FAILED = 'app/FETCH_LOGS_FAILED';
 export const FETCH_LOGS_SUCCESSFUL = 'app/FETCH_LOGS_SUCCESSFUL';
 
-export const changeThankfulFor = (payload: string) => {
+export const changeThankfulFor = (payload: { val: string, idx: number }) => {
   return {
     payload,
     type: CHANGE_THANKFUL_FOR
   };
 };
 
-export const changeLearnedToday = (payload: string) => {
+export const changeLearnedToday = (payload: { val: string, idx: number }) => {
   return {
     payload,
     type: CHANGE_LEARNED_TODAY
   };
 };
 
-export const changeStressedOut = (payload: string) => {
+export const changeStressedOut = (payload: { val: string, idx: number }) => {
   return {
     payload,
     type: CHANGE_STRESSED_OUT
@@ -81,5 +83,19 @@ export const fetchLogsSuccessful = (payload: LogEntry[]) => {
   return {
     payload,
     type: FETCH_LOGS_SUCCESSFUL
+  };
+};
+
+export const addLine = (payload: string) => {
+  return {
+    payload,
+    type: ADD_LINE
+  };
+};
+
+export const addOpenRecord = (payload: number) => {
+  return {
+    payload,
+    type: ADD_OPEN_RECORD
   };
 };

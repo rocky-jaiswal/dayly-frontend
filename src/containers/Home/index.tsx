@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import { Immutable } from 'seamless-immutable';
 import * as dateFns from 'date-fns';
 
-import { Dispatch, RootStateType } from '../../constants/types';
+import { Dispatch, RootStateType, LogEntry } from '../../constants/types';
 import { withWrapper } from '../MainHoc';
 
 import styles from './styles.module.scss';
@@ -12,19 +12,23 @@ import {
   changeThankfulFor,
   changeStressedOut,
   changeLearnedToday,
-  submitLog
+  submitLog,
+  addLine
 } from '../../redux/logs/actions';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import RepeatableInput from '../../components/RepeatableInput';
 
 interface Props {
   loading: boolean;
   message: string | null;
-  today: Immutable<Date>;
+  today: Immutable<LogEntry>;
 }
 
 interface DispatchProps {
-  changeThankfulFor(payload: string): {};
-  changeLearnedToday(payload: string): {};
-  changeStressedOut(payload: string): {};
+  changeThankfulFor(payload: { val: string, idx: number }): {};
+  changeLearnedToday(payload: { val: string, idx: number }): {};
+  changeStressedOut(payload: { val: string, idx: number }): {};
+  addLine(payload: string): {};
   submitLog(): {};
   changeRoute(route: string): {};
 }
@@ -33,15 +37,16 @@ const mapStateToProps = (state: RootStateType, _ownProps: {}): Props => {
   return {
     loading: state.logs.loading,
     message: state.logs.message,
-    today: state.logs.today.day
+    today: state.logs.today
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    changeThankfulFor: (payload: string) => dispatch(changeThankfulFor(payload)),
-    changeLearnedToday: (payload: string) => dispatch(changeLearnedToday(payload)),
-    changeStressedOut: (payload: string) => dispatch(changeStressedOut(payload)),
+    changeThankfulFor: (payload: { val: string, idx: number }) => dispatch(changeThankfulFor(payload)),
+    changeLearnedToday: (payload: { val: string, idx: number }) => dispatch(changeLearnedToday(payload)),
+    changeStressedOut: (payload: { val: string, idx: number }) => dispatch(changeStressedOut(payload)),
+    addLine: (payload: string) => dispatch(addLine(payload)),
     submitLog: () => dispatch(submitLog()),
     changeRoute: (payload: string) => dispatch(push(payload))
   };
@@ -52,7 +57,7 @@ export class Home extends React.Component<Props & DispatchProps> {
   render() {
     return (
       <div className={styles.home_container}>
-        <h1>On {dateFns.format(this.props.today.asMutable(), 'DD-MMM-YYYY')}</h1>
+        <h1>On {dateFns.format(this.props.today.day.asMutable(), 'DD-MMM-YYYY')}</h1>
         <hr/>
         {this.props.message &&
           <div className={styles.message}>
@@ -61,21 +66,28 @@ export class Home extends React.Component<Props & DispatchProps> {
         }
         <form>
           <p>I am thankful for:</p>
-          <textarea
+          <RepeatableInput
             name="thankfulFor"
-            onChange={(e) => this.props.changeThankfulFor(e.target.value || '')}
+            entries={this.props.today.thankfulFor}
+            addLine={this.props.addLine}
+            changeHandler={this.props.changeThankfulFor}
           />
           <p>I learned:</p>
-          <textarea
-            name="learned"
-            onChange={(e) => this.props.changeLearnedToday(e.target.value || '')}
+          <RepeatableInput
+            name="learnedToday"
+            entries={this.props.today.learnedToday}
+            addLine={this.props.addLine}
+            changeHandler={this.props.changeLearnedToday}
           />
           <p>I stressed out because:</p>
-          <textarea
-            name="stress"
-            onChange={(e) => this.props.changeStressedOut(e.target.value || '')}
+          <RepeatableInput
+            name="stressedOut"
+            entries={this.props.today.stressedOut}
+            addLine={this.props.addLine}
+            changeHandler={this.props.changeStressedOut}
           />
           <br/>
+          <LoadingSpinner visible={this.props.loading} />
           <button
             disabled={this.props.loading}
             type="submit"

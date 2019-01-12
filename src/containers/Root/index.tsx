@@ -43,11 +43,8 @@ const WelcomeMessage = (props: Props) => {
       <h1><FormattedMessage id="app.welcome" /></h1>
       <hr/>
       <div className={styles.hero}>
-        <p>Good things happen to us everyday, but at the end of the year we
-           may not remember the little things that keep us smiling and be <b>thankful</b> for every day.</p>
-        <p>This tiny application is an attempt to help me keep track of the good & bad
-          things that happen throughout the year and maybe I can later look back and remember
-          atleast a hundred things to be grateful for.</p>
+        <p><FormattedMessage id={'app.body1'} /></p>
+        <p><FormattedMessage id={'app.body2'} /></p>
       </div>
       {props.loading ?
         <LoadingSpinner visible={props.loading} />
